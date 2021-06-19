@@ -54,7 +54,7 @@ class Decoder(nn.Module):
         embedded = self.embedding(inputs).to(self.device)
 
         if inputs_lens is not None:
-            embedded = pack_padded_sequence(embedded, inputs_lens, batch_first=True)
+            embedded = pack_padded_sequence(embedded, inputs_lens.cpu(), batch_first=True)
             rnn_output, hidden = self.rnn(embedded, hidden)
             rnn_output, _ = pad_packed_sequence(rnn_output, batch_first=True)
 
